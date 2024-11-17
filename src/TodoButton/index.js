@@ -1,13 +1,16 @@
 
-import './../css/TodoButton.css';
+import React from 'react';
+import './TodoButton.css';
 import { BsX } from "react-icons/bs";
+import { TodoContext } from '../TodoContext';
 
 function TodoButton() {
+    const { openModal, setOpenModal } = React.useContext(TodoContext);
+
     return (
         <button className="CreateTodoButton"
             onClick={(event) => {
-                console.log('Le diste click')
-                console.log(event)
+                setOpenModal(!openModal);
             }}><BsX /></button>
     );
 }

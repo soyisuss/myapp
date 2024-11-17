@@ -1,31 +1,37 @@
 
 import React from "react";
-import { TodoButton } from "../components/TodoButton";
-import { TodoCount } from "../components/TodoCount";
-import { TodoList } from "../components/TodoList";
-import { TodoSearch } from "../components/TodoSearch";
-import { TodoItem } from "../components/TodoItem";
+import { TodoButton } from "../TodoButton";
+import { TodoCount } from "../TodoCount";
+import { TodoList } from "../TodoList";
+import { TodoSearch } from "../TodoSearch";
+import { TodoItem } from "../TodoItem";
+import { TodosError } from "../TodoNotices/TodosError";
+import { TodosLoading } from "../TodoNotices/TodosLoading";
+import { TodoContext } from "../TodoContext";
+import { Modal } from "../Modal";
+import { TodoForm } from "../TodoForm";
 
-function AppUI({
-    setSearchValue,
-    totalTodos,
-    completedTodos,
-    searchedTodos,
-    searchValue,
-    completeTodo,
-    deleteTodo }
-) {
+
+function AppUI() {
+    const {
+        loading,
+        error,
+        searchedTodos,
+        completeTodo,
+        deleteTodo,
+        openModal,
+    } = React.useContext(TodoContext);
+
     return (
         <>
-            <TodoCount
-                total={totalTodos}
-                completed={completedTodos}
-            />
-            <TodoSearch
-                searchValue={searchValue}
-                setSearchValue={setSearchValue}
-            />
+
+            <TodoCount />
+            <TodoSearch />
             <TodoList>
+                {loading && <TodosLoading />}
+                {error && <TodosError />}
+                {(!loading && !searchedTodos.length) && <p>Crea tu primer TODO!</p>}
+
                 {searchedTodos.map(todo => (
                     <TodoItem
                         key={todo.text}
@@ -38,6 +44,12 @@ function AppUI({
             </TodoList>
 
             <TodoButton />
+
+            {openModal && (
+                <Modal>
+                    <TodoForm />
+                </Modal>
+            )}
         </>
     );
 }

@@ -1,5 +1,5 @@
 
-import './../css/TodoItem.css';
+import './TodoItem.css';
 import { BsCheck } from "react-icons/bs";
 import { BsX } from "react-icons/bs";
 

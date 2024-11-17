@@ -1,5 +1,5 @@
 
-import './../css/TodoList.css';
+import './TodoList.css';
 
 function TodoList({ children }) {
     return (
